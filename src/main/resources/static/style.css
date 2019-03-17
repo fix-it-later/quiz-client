@@ -8,7 +8,7 @@
     color: white;
 }
 #user-name-label::before{
-    content: "Używkownik: ";
+    content: "Użytkownik: ";
     color: white;
 }
 
