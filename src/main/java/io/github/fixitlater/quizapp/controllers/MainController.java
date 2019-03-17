@@ -21,8 +21,8 @@ public class MainController {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    @GetMapping("/")
-    public String homePage() {
+    @GetMapping (value = {"/","/index","/home"})
+    public String homePage(){
         return "index";
     }
 
@@ -44,3 +44,5 @@ public class MainController {
     }
 
 }
+
+
