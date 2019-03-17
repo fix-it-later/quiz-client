@@ -18,6 +18,9 @@ public class UserController {
         model.addAttribute("registrationForm", new RegistrationForm());
         return "/user/userRegisterForm";
     }
+
+
+
     @GetMapping("/user/login")
     public String goToLoginForm(){
         return "/user/userLoginForm";
