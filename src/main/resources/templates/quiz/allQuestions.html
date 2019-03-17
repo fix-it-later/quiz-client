@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Random Question</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/user/register}">Register</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/user/login}">Log in</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div th:each="q : ${questions}"><br>
+<p th:text="${q.questionBody}">...</p>
+<form th:each="a : ${q.answers}" method="post">
+<input type="radio" th:text="${a.answerBody}" value="A">...</input><br>
+</form>
+</div>
+
+</body>
+</html>
