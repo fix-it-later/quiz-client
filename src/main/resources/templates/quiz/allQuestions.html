@@ -7,7 +7,7 @@
 </head>
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
-<form action="/quiz/results" method="post">
+<form th:action="@{/quiz/results}" method="post">
     <div th:each="q : ${questions}"><br>
         <p th:text="${q.questionBody}">...</p>
         <ul>

@@ -20,6 +20,7 @@ public class MainController {
 
     private RestTemplate restTemplate;
     private QuestionService questionService;
+    private QuestionDto[] questionDtos;
 
     @Autowired
     public MainController(RestTemplateBuilder restTemplateBuilder, QuestionService questionService) {
@@ -42,7 +43,7 @@ public class MainController {
 
     @GetMapping("/quiz/Questions")
     public String showQuestions(Model model){
-        QuestionDto[] questionDtos = restTemplate.getForObject("http://fix-it-later-quiz-api.herokuapp.com/questions/all", QuestionDto[].class);
+        questionDtos = restTemplate.getForObject("http://fix-it-later-quiz-api.herokuapp.com/questions/all", QuestionDto[].class);
 
         List<QuestionDto> questions = Arrays.asList(questionDtos);
         model.addAttribute("questions", questions);
@@ -51,7 +52,7 @@ public class MainController {
 
     @PostMapping("/quiz/results")
     public String evaluateAnswers(@RequestParam Map<String, String> allParameters, Model model){
-        int correctAnswers = questionService.evaluateAnswers(allParameters);
+        int correctAnswers = questionService.evaluateAnswers(allParameters, questionDtos);
         model.addAttribute("correctAnswers", correctAnswers);
         return "quiz/evaluate";
     }
