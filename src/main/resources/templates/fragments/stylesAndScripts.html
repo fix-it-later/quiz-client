@@ -17,20 +17,23 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse ml-auto" id="navbarTogglerDemo01">
-        <div class="nav-item active" id="user-name-label" th:if="${@userContextService.loggedAs}" th:text="${@userContextService.loggedAs}"></div>
+    <div class="collapse navbar-collapse mr-auto" id="navbarTogglerDemo01">
+        <div class="nav-item active ml-3" id="user-name-label" th:if="${@userContextService.loggedAs}" th:text="${@userContextService.loggedAs}"></div>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
+            <li class="nav-item active mr-3">
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user/register}">Register</a>
+            <li class="nav-item active mr-3">
+                <a class="nav-link" th:href="@{/user/register}" th:unless="${@userContextService.loggedAs}" text="Register">Register</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user/profile}">My profile</a>
+            <li class="nav-item active mr-3">
+                <a class="nav-link" th:href="@{/user/profile}" th:if="${@userContextService.loggedAs}" text="My Profile">My profile</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/user/login}">Log in</a>
+            <li class="nav-item active mr-3">
+                <a class="nav-link" th:href="@{/user/login}" th:unless="${@userContextService.loggedAs}" text="Log in">Log in</a>
+            </li>
+            <li class="nav-item active mr-3">
+                <a class="nav-link" th:href="@{/user/logout}" th:if="${@userContextService.loggedAs}" text="Log out">Log out</a>
             </li>
         </ul>
     </div>

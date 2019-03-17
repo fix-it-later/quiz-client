@@ -4,11 +4,19 @@
 .error{
     color: red;
 }
+body {
+    background-image: url('images/background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    color: white;
+}
 #user-name-label{
     color: white;
 }
 #user-name-label::before{
-    content: "Użytkownik: ";
+    content: "user: ";
     color: white;
 }
 
