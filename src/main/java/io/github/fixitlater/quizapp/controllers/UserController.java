@@ -44,4 +44,8 @@ public class UserController {
     public String goToLoginForm() {
         return "/user/userLoginForm";
     }
+    @GetMapping("/user/profile")
+    public String goToUserProfile(){
+        return "/user/userProfile";
+    }
 }

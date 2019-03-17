@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>user profile</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+</head>
+<body>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 mt-3">
+            <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                <div class="card-header" th:if="${@userContextService.loggedAs}"
+                     th:text="${@userContextService.loggedAs}">Header
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Profile data:</h5>
+                    <p class="card-header" th:if="${@userContextService.loggedAs}"
+                       th:text="${@userContextService.loggedAs}">Data</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
