@@ -17,16 +17,16 @@ public class UserContextService {
         //authentication.getAuthorities().stream().map(a->a.getAuthority())
         return authentication.getName();
     }
-
-    public boolean hasRole(String roleName){
+    public String getLoggedName(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication instanceof AnonymousAuthenticationToken){
-            return false;
+            return null;
         }
-
-        return authentication.getAuthorities().stream()
-                .map(a -> a.getAuthority())
-                .anyMatch(s -> s.equals(roleName));
+        //authentication.getAuthorities().stream().map(a->a.getAuthority())
+        return authentication.getName();
     }
+
+
+
 }

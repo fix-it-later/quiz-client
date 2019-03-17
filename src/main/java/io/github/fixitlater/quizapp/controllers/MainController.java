@@ -1,6 +1,6 @@
 package io.github.fixitlater.quizapp.controllers;
 
-import io.github.fixitlater.quizapp.entities.QuestionDto;
+import io.github.fixitlater.quizapp.dtos.QuestionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Controller;
