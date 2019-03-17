@@ -24,6 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/quiz").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/quiz/Questions").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/quiz/randomQuestion").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/user/profile").hasAnyRole("USER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()

@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping("/user/register")
     public String goToRegisterForm(Model model) {
         model.addAttribute("userRegisterForm", new RegistrationForm());
-        return "/user/userRegisterForm";
+        return "user/userRegisterForm";
     }
 
     @PostMapping("/user/register/new")
@@ -32,7 +32,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("userRegisterForm", registrationForm);
             System.out.println("błędny formularz");
-            return "/user/userRegisterForm";
+            return "user/userRegisterForm";
         } else {
             if(userService.saveUser(registrationForm)){
                 System.out.println("new user");
@@ -41,18 +41,18 @@ public class UserController {
             else {
                 model.addAttribute("userRegisterForm", registrationForm);
                 System.out.println("użytkownik istnieje");
-                return "/user/userRegisterForm";
+                return "user/userRegisterForm";
             }
         }
     }
 
     @GetMapping("/user/login")
     public String goToLoginForm() {
-        return "/user/userLoginForm";
+        return "user/userLoginForm";
     }
 
     @GetMapping("/user/profile")
     public String goToUserProfile(){
-        return "/user/userProfile";
+        return "user/userProfile";
     }
 }
