@@ -19,18 +19,18 @@ public class UserController {
         return "/user/userRegisterForm";
     }
 
-
-
     @GetMapping("/user/login")
     public String goToLoginForm(){
         return "/user/userLoginForm";
     }
+
     @PostMapping("/user/register/new")
     public String registerUser(@ModelAttribute @Valid RegistrationForm registrationForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "/user/userRegisterForm";
-        }else
-        System.out.println("new user");
-        return "redirect:/index";
+        } else {
+            System.out.println("new user");
+            return "redirect:/index";
+        }
     }
 }

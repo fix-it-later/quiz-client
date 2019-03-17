@@ -22,7 +22,7 @@ public class UserService {
         User user = new User();
         user.setName(registrationForm.getName());
         user.setEmail(registrationForm.getEmail());
-//        user.setPasswordHash(registrationForm.);
+        user.setPasswordHash(registrationForm.getPassword());
         user.setAddedDate(LocalDate.now());
         userRepository.save(user);
     }
