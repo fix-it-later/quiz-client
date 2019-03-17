@@ -10,18 +10,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
+
 @Controller
 public class UserController {
     private UserService userService;
+
+
     @Autowired
     public UserController (UserService userService){
         this.userService = userService;
     }
+
     @GetMapping("/user/register")
     public String goToRegisterForm(Model model) {
         model.addAttribute("userRegisterForm", new RegistrationForm());
         return "/user/userRegisterForm";
     }
+
     @PostMapping("/user/register/new")
     public String registerUser(@ModelAttribute @Valid RegistrationForm registrationForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -40,10 +45,12 @@ public class UserController {
             }
         }
     }
+
     @GetMapping("/user/login")
     public String goToLoginForm() {
         return "/user/userLoginForm";
     }
+
     @GetMapping("/user/profile")
     public String goToUserProfile(){
         return "/user/userProfile";
