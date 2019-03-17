@@ -2,18 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Random Question</title>
+    <title>Answer Questions</title>
     <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
 </head>
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
-
-<div th:each="q : ${questions}"><br>
-<p th:text="${q.questionBody}">...</p>
-<form th:each="a : ${q.answers}" method="post">
-<input type="radio" th:text="${a.answerBody}" value="A">...</input><br>
+<form action="/quiz/results" method="post">
+    <div th:each="q : ${questions}"><br>
+        <p th:text="${q.questionBody}">...</p>
+        <ul>
+            <li th:each="a : ${q.answers}">
+                <input type="radio" th:name="${q.questionId}" th:text="${a.answerBody}" th:value="${a.answerNo}"/>
+            </li>
+        </ul>
+    </div>
+    <input type="submit" value="Submit">
 </form>
-</div>
-
 </body>
 </html>
