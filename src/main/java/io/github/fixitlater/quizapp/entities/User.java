@@ -6,6 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+
+
 @Entity
 @Setter
 @Getter
@@ -22,5 +24,6 @@ public class User{
     private String passwordHash;
     @ManyToOne
     private Role role;
-
+//    @OneToMany (mappedBy = "user")
+//    private List<Score> score;
 }
