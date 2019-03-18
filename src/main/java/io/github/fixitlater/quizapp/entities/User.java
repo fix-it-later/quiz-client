@@ -24,6 +24,4 @@ public class User{
     private String passwordHash;
     @ManyToOne
     private Role role;
-//    @OneToMany (mappedBy = "user")
-//    private List<Score> score;
 }

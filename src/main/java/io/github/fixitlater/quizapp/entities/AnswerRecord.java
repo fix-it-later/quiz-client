@@ -4,20 +4,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
-//@Entity
+@Entity
 @Setter
 @Getter
-public class Score {
+public class AnswerRecord {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate approachDate;
-    private Integer scoreAchieved;
+    private boolean isCorrect;
     @Column (name = "category")
-    private String category; //TODO
+    private String category;
     @Column (name = "language")
-    private String language;//TODO
-    private User user;
+    private String language;
+    @ManyToOne
+    private QuizAttempt quizAttempt;
 }
