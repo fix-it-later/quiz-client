@@ -1,20 +1,23 @@
 package io.github.fixitlater.quizapp.controllers;
+import io.github.fixitlater.quizapp.dtos.UserDto;
 import io.github.fixitlater.quizapp.forms.RegistrationForm;
 import io.github.fixitlater.quizapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
 public class UserController {
     private UserService userService;
-
 
     @Autowired
     public UserController (UserService userService){
@@ -52,7 +55,19 @@ public class UserController {
     }
 
     @GetMapping("/user/profile")
-    public String goToUserProfile(){
+    public String goToUserProfile(Model model){
+        UserDto userDto = userService.getUserDto();
+        System.out.println(userDto.toString());
+        model.addAttribute("userDto", userDto);
         return "user/userProfile";
+    }
+
+    @GetMapping("/user/logout")
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/user/login";
     }
 }

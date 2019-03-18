@@ -1,5 +1,6 @@
 package io.github.fixitlater.quizapp.services;
 
+import io.github.fixitlater.quizapp.dtos.UserDto;
 import io.github.fixitlater.quizapp.entities.Role;
 import io.github.fixitlater.quizapp.entities.User;
 import io.github.fixitlater.quizapp.forms.RegistrationForm;
@@ -20,12 +21,16 @@ public class UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private UserContextService userContextService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                       RoleRepository roleRepository,
+                       UserContextService userContextService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userContextService = userContextService;
     }
 
     public boolean saveUser(RegistrationForm registrationForm) {
@@ -53,5 +58,16 @@ public class UserService {
         Role role = roleRepository.findByRoleName(ROLE_USER)
                 .orElseGet(() -> roleRepository.save(new Role(ROLE_USER)));
         user.setRole(role);
+    }
+
+    public UserDto getUserDto() {
+        UserDto userDto = new UserDto();
+        Optional<User> optionalUser = userRepository.findAllByEmail(userContextService.getLoggedAs());
+        if (optionalUser.isPresent()) {
+            userDto.setNameDto(optionalUser.get().getName());
+            userDto.setEmailDto(optionalUser.get().getEmail());
+            return userDto;
+        }
+        return userDto;
     }
 }

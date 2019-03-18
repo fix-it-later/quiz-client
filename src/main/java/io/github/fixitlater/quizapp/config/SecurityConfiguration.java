@@ -35,6 +35,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureUrl("/user/login?status=error")
                 .loginProcessingUrl("/user/loggedIn")
                 .defaultSuccessUrl("/index")
+                .and()
+                .logout()
+                .logoutUrl("/user/logout")
+                .logoutSuccessUrl("/index")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
         ;
     }
 
