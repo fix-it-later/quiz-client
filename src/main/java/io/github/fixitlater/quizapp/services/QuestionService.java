@@ -23,7 +23,8 @@ public class QuestionService {
                     correctAnswer = a.getAnswerNo();
                 }
             }
-            if(Integer.parseInt(allParameters.get(q.getQuestionId().toString())) == correctAnswer){
+            if(allParameters.get(q.getQuestionId().toString()) != null &&
+                    Integer.parseInt(allParameters.get(q.getQuestionId().toString())) == correctAnswer){
                 counter++;
             }
         }
