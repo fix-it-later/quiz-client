@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your results</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+</head>
+<body>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
+<p>Liczba prawidłowych odpowiedzi to:</p>
+<p th:text="${correctAnswers}">...</p>
+</body>
+</html>
