@@ -1,4 +1,5 @@
 package io.github.fixitlater.quizapp.controllers;
+
 import io.github.fixitlater.quizapp.dtos.UserDto;
 import io.github.fixitlater.quizapp.forms.RegistrationForm;
 import io.github.fixitlater.quizapp.services.UserService;
@@ -20,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    public UserController (UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -36,17 +37,14 @@ public class UserController {
             model.addAttribute("userRegisterForm", registrationForm);
             System.out.println("błędny formularz");
             return "user/userRegisterForm";
-        } else {
-            if(userService.saveUser(registrationForm)){
-                System.out.println("new user");
-                return "redirect:/index";
-            }
-            else {
-                model.addAttribute("userRegisterForm", registrationForm);
-                System.out.println("użytkownik istnieje");
-                return "user/userRegisterForm";
-            }
         }
+        if (userService.saveUser(registrationForm)) {
+            System.out.println("new user");
+            return "redirect:/index";
+        }
+        model.addAttribute("userRegisterForm", registrationForm);
+        System.out.println("użytkownik istnieje");
+        return "user/userRegisterForm";
     }
 
     @GetMapping("/user/login")
@@ -55,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/user/profile")
-    public String goToUserProfile(Model model){
+    public String goToUserProfile(Model model) {
         UserDto userDto = userService.getUserDto();
         System.out.println(userDto.toString());
         model.addAttribute("userDto", userDto);
@@ -63,9 +61,9 @@ public class UserController {
     }
 
     @GetMapping("/user/logout")
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/user/login?logout";

@@ -10,16 +10,14 @@
 <div class="container-fluid">
     <div class="row justify-content-center mt-5">
         <div class="col-md-6 col-lg-4 mt-3">
-               <form method="post">
+               <form method="post" th:action="@{/quiz/challenge}">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="selectCategory">Category</label>
                     </div>
                     <select class="custom-select" id="selectCategory" name="category">
                         <option selected>Choose...</option>
-                        <option th:value="it">it</option>
-                        <option th:value="category2">Category two</option>
-                        <option th:value="category3">Category three</option>
+                        <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}">cat</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
@@ -28,8 +26,7 @@
                     </div>
                     <select class="custom-select" id="selectLanguage" name="lang">
                         <option selected>Choose...</option>
-                        <option th:value="pol">Polski</option>
-                        <option th:value="eng">English</option>
+                        <option th:each="lang : ${languages}" th:value="${lang}" th:text="${lang}">lang</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Start quiz</button>

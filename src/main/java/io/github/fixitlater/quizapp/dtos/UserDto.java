@@ -15,5 +15,4 @@ import org.springframework.stereotype.Component;
 public class UserDto {
     private String nameDto;
     private String emailDto;
-
 }
