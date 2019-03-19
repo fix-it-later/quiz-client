@@ -13,26 +13,26 @@
 </head>
 <body>
 <th:block th:fragment="navi">
-<nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse mr-auto" id="navbarTogglerDemo01">
+    <div class="collapse navbar-collapse mr-auto">
         <div class="nav-item active ml-3" id="user-name-label" th:if="${@userContextService.loggedAs}" th:text="${@userContextService.loggedAs}"></div>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active mr-3">
                 <a class="nav-link" th:href="@{/}">Home</a>
             </li>
-            <li class="nav-item active mr-3" th:unless="${@userContextService.loggedAs}">
+            <li class="nav-item active mr-3" th:unless="${@userContextService.logged}">
                 <a class="nav-link" th:href="@{/user/register}">Register</a>
             </li>
-            <li class="nav-item active mr-3" th:if="${@userContextService.loggedAs}">
+            <li class="nav-item active mr-3" th:if="${@userContextService.logged}">
                 <a class="nav-link" th:href="@{/user/profile}">My profile</a>
             </li>
-            <li class="nav-item active mr-3" th:unless="${@userContextService.loggedAs}">
+            <li class="nav-item active mr-3" th:unless="${@userContextService.logged}">
                 <a class="nav-link" th:href="@{/user/login}">Log in</a>
             </li>
-            <li class="nav-item active mr-3" th:if="${@userContextService.loggedAs}">
+            <li class="nav-item active mr-3" th:if="${@userContextService.logged}">
                 <a class="nav-link" th:href="@{/user/logout}">Log out</a>
             </li>
         </ul>

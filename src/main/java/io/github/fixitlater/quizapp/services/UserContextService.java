@@ -8,25 +8,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserContextService {
 
-    public String getLoggedAs(){
+    public String getLoggedAs() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authentication instanceof AnonymousAuthenticationToken){
+        if (authentication instanceof AnonymousAuthenticationToken) {
             return null;
         }
-        //authentication.getAuthorities().stream().map(a->a.getAuthority())
-        return authentication.getName();
-    }
-    public String getLoggedName(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication instanceof AnonymousAuthenticationToken){
-            return null;
-        }
-        //authentication.getAuthorities().stream().map(a->a.getAuthority())
         return authentication.getName();
     }
 
+    public boolean isLogged() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return false;
+        }
+        return authentication.isAuthenticated();
+    }
 }
