@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 
@@ -74,7 +73,7 @@ public class QuizController {
     }
 
     @PostMapping("/quiz/results/{uid}")
-    public String evaluateAnswers2(@RequestParam Map<String, String> allParameters,@PathVariable String uid, Model model)
+    public String evaluateAnswers(@RequestParam Map<String, String> allParameters,@PathVariable String uid, Model model)
     {
         QuestionDto [] questionDtos = quizStorage.getQuiz(uid);
         int correctAnswers = questionService.evaluateAnswers(allParameters, questionDtos);
