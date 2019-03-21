@@ -9,13 +9,9 @@
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
 <div class="container-fluid">
-    <div class="container-fluid" id="fade">
+    <div class="container-fluid">
         <div class="row justify-content-center mt-5">
-            <div class="col-sm-6 col-md-4 buttons">
-                <form method="get" th:action="@{/quiz/menu}">
-                    <input class="btn btn-primary btn-lg" type="submit" value="Start Quiz">
-                </form>
-            </div>
+           <a class="welcome fade-in" th:href="@{/quiz/menu}">Welcome to quiz app - click to start</a>
         </div>
     </div>
 </div>

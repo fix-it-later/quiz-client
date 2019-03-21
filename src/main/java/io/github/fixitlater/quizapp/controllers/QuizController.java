@@ -41,7 +41,7 @@ public class QuizController {
     }
 
     @PostMapping("/quiz/challenge")
-    public String showParamQuiz(@RequestParam String category, @RequestParam String lang) {
+    public String showParamQuiz(@RequestParam(required = false) String category, @RequestParam(required = false) String lang) {
         System.out.println(category + " " + lang);
         return "index";
     }

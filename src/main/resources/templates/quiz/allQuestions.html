@@ -7,17 +7,28 @@
 </head>
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
-<form th:action="@{/quiz/results/} + ${uid}" method="post">
-    <div th:each="q : ${questions}"><br>
-        <p th:text="${q.questionBody}">...</p>
-        <ul>
-            <li th:each="a : ${q.answers}">
-                <input type="radio" th:name="${q.questionId}" th:text="${a.answerBody}" th:value="${a.answerNo}"/>
-            </li>
-        </ul>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 mt-3">
+            <form th:action="@{/quiz/results/} + ${uid}" method="post">
+                <div class="custom-card-body" th:each="q : ${questions}">
+                    <p class="custom-card-header" th:text="${q.questionBody}">...</p>
+                    <ul>
+                        <li th:each="a : ${q.answers}">
+                            <input id="defaultChecked" type="radio"
+                                   th:name="${q.questionId}"
+                                   th:value="${a.answerNo}"/>
+                            <label th:text="${a.answerBody}"
+                                   for="defaultChecked"></label>
+                        </li>
+                    </ul>
+                </div>
+                <input type="submit" class="btn btn-primary mt-2 mb-4" value="Submit">
+                <p th:text="${'quiz id, ' + uid}">nr</p>
+            </form>
+        </div>
     </div>
-    <input type="submit" value="Submit">
-    <p th:text="${'quiz id, ' + uid}">nr</p>
-</form>
+</div>
 </body>
+
 </html>

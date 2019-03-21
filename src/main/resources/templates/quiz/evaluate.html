@@ -7,7 +7,15 @@
 </head>
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
-<p>Liczba prawidłowych odpowiedzi to:</p>
-<p th:text="${correctAnswers}">...</p>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 mt-3">
+            <div class="custom-card-body">
+                <p class="custom-card-header">Liczba prawidłowych odpowiedzi to:</p>
+                <p th:text="${correctAnswers}">...</p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
