@@ -10,6 +10,15 @@ body {
     background-size: cover;
     color: white;
 }
+.error_page{
+    background-image: url('images/sad.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+}
+
 .error{
     color: red;
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+
+</head>
+<body class="error_page">
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row justify-content-center mt-5">
+            <div class="col-sm-6 col-xl-10 buttons">
+                <h1>Sorry :( The link is broken or the page has been moved.</h1>
+                <form method="get" th:action="@{/}">
+                    <input class="btn btn-primary mt-5" type="submit" value="Go home">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
