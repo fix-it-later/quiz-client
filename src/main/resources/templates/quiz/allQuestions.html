@@ -7,7 +7,7 @@
 </head>
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
-<form th:action="@{/quiz/results}" method="post">
+<form th:action="@{/quiz/results/} + ${uid}" method="post">
     <div th:each="q : ${questions}"><br>
         <p th:text="${q.questionBody}">...</p>
         <ul>
@@ -17,6 +17,7 @@
         </ul>
     </div>
     <input type="submit" value="Submit">
+    <p th:text="${'quiz id, ' + uid}">nr</p>
 </form>
 </body>
 </html>

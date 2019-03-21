@@ -16,10 +16,6 @@ public class QuizAttempt {
     private Long id;
     @Column (name = "approach_date")
     private LocalDateTime approachDate;
-    @Column (name = "correct_answers_count")
-    private Integer correctAnswersCount;
-    @Column (name = "questions_count")
-    private Integer questionsCount;
     @ManyToOne
     @JoinColumn (name = "user_id")
     private User user;
