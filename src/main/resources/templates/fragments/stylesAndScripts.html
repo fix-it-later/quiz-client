@@ -18,7 +18,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse mr-auto">
-        <div class="nav-item active ml-3" id="user-name-label" th:if="${@userContextService.loggedAs}" th:text="${@userContextService.loggedAs}"></div>
+        <div class="nav-item active ml-3" id="user-name-label"><a th:href="@{/user/profile}" th:if="${@userContextService.loggedAs}" th:text="${@userContextService.loggedAs}"></a></div>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active mr-3">
                 <a class="nav-link" th:href="@{/}">Home</a>

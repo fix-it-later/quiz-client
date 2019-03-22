@@ -16,7 +16,7 @@
                         <label class="input-group-text" for="selectCategory">Category</label>
                     </div>
                     <select class="custom-select" id="selectCategory" name="category">
-                        <option selected>Choose...</option>
+                        <option selected th:value="${cat}">Choose...</option>
                         <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}">cat</option>
                     </select>
                 </div>
@@ -25,7 +25,7 @@
                         <label class="input-group-text" for="selectLanguage">Language</label>
                     </div>
                     <select class="custom-select" id="selectLanguage" name="lang">
-                        <option selected>Choose...</option>
+                        <option selected th:value="${lang}">Choose...</option>
                         <option th:each="lang : ${languages}" th:value="${lang}" th:text="${lang}">lang</option>
                     </select>
                 </div>
@@ -36,10 +36,10 @@
     <div class="row justify-content-center mt-5">
         <div class="col-sm-6 col-md-4 buttons">
             <form method="get" th:action="@{/quiz/Questions}">
-                <input class="btn btn-primary btn-lg" type="submit" value="few random questions">
+                <input class="btn btn-primary" type="submit" value="few random questions">
             </form>
             <form method="get" th:action="@{/quiz/randomQuestion}">
-                <input class="btn btn-primary btn-lg mt-3" type="submit" value="random question">
+                <input class="btn btn-primary mt-3" type="submit" value="random question">
             </form>
         </div>
     </div>
