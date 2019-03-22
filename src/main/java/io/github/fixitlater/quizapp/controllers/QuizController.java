@@ -73,9 +73,8 @@ public class QuizController {
     }
 
     @PostMapping("/quiz/results/{uid}")
-    public String evaluateAnswers(@RequestParam Map<String, String> allParameters,@PathVariable String uid, Model model)
-    {
-        QuestionDto [] questionDtos = quizStorage.getQuiz(uid);
+    public String evaluateAnswers(@RequestParam Map<String, String> allParameters, @PathVariable String uid, Model model) {
+        QuestionDto[] questionDtos = quizStorage.getQuiz(uid);
         int correctAnswers = questionService.evaluateAnswers(allParameters, questionDtos);
         model.addAttribute("correctAnswers", correctAnswers);
         return "quiz/evaluate";
