@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Question</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+</head>
+<body>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 mt-3">
+            <h4>New Question Form</h4>
+            <form method="post" th:action="@{/admin/create}" th:object="${questionForm}">
+                <div class="form-group">
+                    <label>Type question</label>
+                    <input type="text" class="form-control" aria-describedby="nameHelp" placeholder="Question body"
+                           th:field="*{formQuestion}" id="formQuestion">
+                    <span class="error" th:errors="*{formQuestion}"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="selectCategory">Category</label>
+                    </div>
+                    <select class="custom-select" id="selectCategory" name="category">
+                        <option selected>Choose...</option>
+                        <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}">cat</option>
+                    </select>
+                    <div class="error" th:errors="*{formCategory}"></div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="selectLanguage">Language</label>
+                    </div>
+                    <select class="custom-select" id="selectLanguage" name="lang">
+                        <option selected>Choose...</option>
+                        <option th:each="lang : ${languages}" th:value="${lang}" th:text="${lang}">lang</option>
+                    </select>
+                    <div class="error" th:errors="*{formLanguage}"></div>
+                </div>
+                <div class="form-group">
+                    <label>Provide correct answer</label>
+                    <input type="text" class="form-control" placeholder="Correct answer"
+                           th:field="*{formCorrectAnswer}" id="formCorrectAnswer">
+                    <span class="error" th:errors="*{formCorrectAnswer}"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

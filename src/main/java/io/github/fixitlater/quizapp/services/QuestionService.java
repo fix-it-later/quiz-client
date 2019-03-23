@@ -2,12 +2,12 @@ package io.github.fixitlater.quizapp.services;
 
 import io.github.fixitlater.quizapp.dtos.AnswerDto;
 import io.github.fixitlater.quizapp.dtos.QuestionDto;
+import io.github.fixitlater.quizapp.forms.QuestionForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,5 +50,10 @@ public class QuestionService {
     public QuestionDto getRandomQuestion() {
         QuestionDto questionDto = restTemplate.getForObject("http://fix-it-later-quiz-api.herokuapp.com/questions/random", QuestionDto.class);
         return questionDto;
+    }
+
+    public boolean saveQuestion(QuestionForm questionForm) { //TODO
+
+        return true;
     }
 }

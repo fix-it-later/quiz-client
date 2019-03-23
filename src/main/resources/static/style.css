@@ -56,6 +56,9 @@ ul.navbar-nav{
 .buttons {
     text-align: center;
 }
+ul{
+    list-style-type: none;
+}
 
 a.welcome {
     margin-top: 35vh;
