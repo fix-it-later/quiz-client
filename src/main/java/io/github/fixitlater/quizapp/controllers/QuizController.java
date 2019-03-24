@@ -9,6 +9,7 @@ import io.github.fixitlater.quizapp.services.QuestionService;
 import io.github.fixitlater.quizapp.services.QuizService;
 import io.github.fixitlater.quizapp.services.QuizStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -98,7 +100,7 @@ public class QuizController {
             model.addAttribute("languages", Language.values());
             return "admin/createQuestionForm";
         }
-        if (questionService.saveQuestion(questionForm)) {
+        if (questionService.saveQuestion(questionForm).getStatusCode().equals(HttpStatus.CREATED)) {
             return "success";
         }
         return "failure";
