@@ -2,18 +2,22 @@ package io.github.fixitlater.quizapp.controllers;
 
 
 import io.github.fixitlater.quizapp.dtos.QuestionDto;
+import io.github.fixitlater.quizapp.entities.Category;
+import io.github.fixitlater.quizapp.entities.Language;
+import io.github.fixitlater.quizapp.forms.QuestionForm;
 import io.github.fixitlater.quizapp.services.QuestionService;
 import io.github.fixitlater.quizapp.services.QuizService;
 import io.github.fixitlater.quizapp.services.QuizStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -78,5 +82,27 @@ public class QuizController {
         int correctAnswers = questionService.evaluateAnswers(allParameters, questionDtos);
         model.addAttribute("correctAnswers", correctAnswers);
         return "quiz/evaluate";
+    }
+
+    @GetMapping("/admin/create")
+    public String questionForm(Model model) {
+        model.addAttribute("questionForm", new QuestionForm());
+        model.addAttribute("categories", Category.values());
+        model.addAttribute("languages", Language.values());
+        return "admin/createQuestionForm";
+    }
+
+    @PostMapping("/admin/create")
+    public String createQuestion(@ModelAttribute @Valid QuestionForm questionForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("questionForm", questionForm);
+            model.addAttribute("categories", Category.values());
+            model.addAttribute("languages", Language.values());
+            return "admin/createQuestionForm";
+        }
+        if (questionService.saveQuestion(questionForm).getStatusCode().equals(HttpStatus.CREATED)) {
+            return "success";
+        }
+        return "failure";
     }
 }

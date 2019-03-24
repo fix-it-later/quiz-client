@@ -11,7 +11,4 @@ public class MainController {
     public String homePage(){
         return "index";
     }
-
 }
-
-
