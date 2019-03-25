@@ -2,6 +2,7 @@ package io.github.fixitlater.quizapp.services;
 
 import io.github.fixitlater.quizapp.dtos.UserDto;
 import io.github.fixitlater.quizapp.entities.Role;
+import io.github.fixitlater.quizapp.entities.RoleType;
 import io.github.fixitlater.quizapp.entities.User;
 import io.github.fixitlater.quizapp.forms.RegistrationForm;
 import io.github.fixitlater.quizapp.repositories.RoleRepository;
@@ -56,7 +57,7 @@ public class UserService {
 
     private void getORCreateDefaultRole(User user) {
         Role role = roleRepository.findByRoleName(ROLE_USER)
-                .orElseGet(() -> roleRepository.save(new Role(ROLE_USER)));
+                .orElseGet(() -> roleRepository.save(new Role(RoleType.ROLE_USER)));
         user.setRole(role);
     }
 

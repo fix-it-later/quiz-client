@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Let's play a challenge</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+</head>
+<body>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
+<div class="container-fluid">
+    <div class="row justify-content-center mt-5">
+        <div class="col-sm-6 col-md-4 buttons">
+
+            <h4>Hi <span th:text="${@userContextService.loggedAs}"/></th:text></h4>
+            <form method="get" th:action="@{/challenge/findOpponent}">
+                <input class="btn btn-primary" type="submit" value="Challenge someone">
+            </form>
+            <form method="get" th:action="@{/challenge/statistics}">
+                <input class="btn btn-primary mt-3" type="submit" value="See your stats">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

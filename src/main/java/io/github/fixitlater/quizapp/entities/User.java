@@ -1,5 +1,6 @@
 package io.github.fixitlater.quizapp.entities;
 
+import io.github.fixitlater.quizapp.challenge.DisplayName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +19,13 @@ public class User{
     private LocalDate addedDate;
     @Column (name = "name", length = 100)
     private String name;
-    @Column (name = "email", length = 150)
+    @Column (name = "email", length = 150, unique = true)
     private String email;
     @Column (name = "password")
     private String passwordHash;
     @ManyToOne
     private Role role;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private DisplayName displayName;
 }
