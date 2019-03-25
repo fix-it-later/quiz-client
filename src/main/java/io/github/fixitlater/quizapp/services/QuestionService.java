@@ -113,4 +113,17 @@ public class QuestionService {
         Gson gson = new Gson();
         return gson.fromJson(json, QuestionDto.class);
     }
+
+    public QuestionDto[] getQuestions(String category, String language){
+        int number = 5;
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-userKey", quizApikey);
+        HttpEntity<QuestionDto> request = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange(apiUrl + "/questions/randoms?number=5&category="
+                        + category + "&language=" + language, HttpMethod.GET, request, String.class);
+        String body = response.getBody();
+        return responseToDtoArray(body);
+    }
+
+
 }

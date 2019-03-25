@@ -10,7 +10,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center mt-5">
         <div class="col-md-6 col-lg-4 mt-3">
-               <form method="post" th:action="@{/quiz/challenge}">
+               <form method="post" th:action="@{/quiz/quizAttempt}">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="selectCategory">Category</label>
@@ -24,7 +24,7 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="selectLanguage">Language</label>
                     </div>
-                    <select class="custom-select" id="selectLanguage" name="lang">
+                    <select class="custom-select" id="selectLanguage" name="language">
                         <option selected th:value="${lang}">Any...</option>
                         <option th:each="lang : ${languages}" th:value="${lang}" th:text="${lang}">lang</option>
                     </select>
