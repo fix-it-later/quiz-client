@@ -34,7 +34,7 @@ public class QuizController {
     @GetMapping("/quiz/menu")
     public String getQuizMenu(Model model) {
         model.addAttribute("categories", quizService.getCategoryList());
-        model.addAttribute("languages", quizService.getCategoryList());
+        model.addAttribute("languages", quizService.getLanguageList());
         return "quiz/quizMenu";
     }
 
