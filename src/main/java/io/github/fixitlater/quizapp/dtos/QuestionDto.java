@@ -1,10 +1,7 @@
 package io.github.fixitlater.quizapp.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.fixitlater.quizapp.entities.Category;
-import io.github.fixitlater.quizapp.entities.Language;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -24,10 +21,10 @@ public class QuestionDto {
     private String category;
     private String language;
 
-    public List<AnswerDto> getAnswers() {
+    private List<AnswerDto> answers;
+
+    public List<AnswerDto> shuffleAndGet() {
         Collections.shuffle(answers);
         return answers;
     }
-
-    private List<AnswerDto> answers;
 }

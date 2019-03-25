@@ -9,7 +9,7 @@
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
 
 <p th:text="${question.questionBody}">...</p>
-<form th:each="a : ${question.answers}" method="post">
+<form th:each="a : ${question.shuffleAndGet()}" method="post">
     <input type="radio" th:text=" ${a.answerBody}" th:value="${a.answerNo}"><br>
 </form>
 <input type="submit" value="Submit">
