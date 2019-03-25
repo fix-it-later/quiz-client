@@ -1,12 +1,9 @@
 package io.github.fixitlater.quizapp.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.google.gson.Gson;
 import io.github.fixitlater.quizapp.dtos.AnswerDto;
 import io.github.fixitlater.quizapp.dtos.QuestionDto;
 import io.github.fixitlater.quizapp.forms.QuestionForm;
-import jdk.nashorn.internal.objects.annotations.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -28,6 +25,9 @@ public class QuestionService {
 
     @Value("${quiz.apikey}")
     private String quizApikey;
+
+    @Value("${API_URL}")
+    private String apiUrl;
 
     @Autowired
     public QuestionService(RestTemplateBuilder restTemplateBuilder) {
@@ -53,24 +53,34 @@ public class QuestionService {
     }
 
     public QuestionDto[] getAllQuestions() {
-        QuestionDto[] questionDtos = restTemplate.getForObject("http://fix-it-later-quiz-api.herokuapp.com/questions/all", QuestionDto[].class);
-        return questionDtos;
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-userKey", quizApikey);
+        HttpEntity<QuestionDto> request = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange(apiUrl + "/questions/all",
+                HttpMethod.GET, request, String.class);
+        String body = response.getBody();
+        return responseToDtoArray(body);
     }
 
     public QuestionDto getRandomQuestion() {
-        QuestionDto questionDto = restTemplate.getForObject("http://fix-it-later-quiz-api.herokuapp.com/questions/random", QuestionDto.class);
-        return questionDto;
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-userKey", quizApikey);
+        HttpEntity<QuestionDto> request = new HttpEntity<>(headers);
+        ResponseEntity<String> response = restTemplate.exchange(apiUrl + "/questions/random",
+                HttpMethod.GET, request, String.class);
+        String body = response.getBody();
+        return responseToDto(body);
     }
 
-    public ResponseEntity saveQuestion(QuestionForm questionForm){
+    public boolean saveQuestion(QuestionForm questionForm){
         QuestionDto questionDto = questionFormToDto(questionForm);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-userKey", quizApikey);
         HttpEntity<QuestionDto> request = new HttpEntity<>(questionDto, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity("http://fix-it-later-quiz-api.herokuapp.com/questions/add", request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl + "/questions/add", request, String.class);
 
-        return response;
+        return response.getStatusCode().equals(HttpStatus.CREATED);
     }
 
     private QuestionDto questionFormToDto(QuestionForm questionForm){
@@ -92,5 +102,15 @@ public class QuestionService {
         answerDto.setAnswerBody(formAnswer);
         answerDto.setCorrect(isCorrect);
         return answerDto;
+    }
+
+    private QuestionDto[] responseToDtoArray(String json){
+        Gson gson = new Gson();
+        return gson.fromJson(json, QuestionDto[].class);
+    }
+
+    private QuestionDto responseToDto(String json){
+        Gson gson = new Gson();
+        return gson.fromJson(json, QuestionDto.class);
     }
 }

@@ -14,7 +14,7 @@
                 <div class="custom-card-body" th:each="q : ${questions}">
                     <p class="custom-card-header" th:text="${q.questionBody}">...</p>
                     <ul>
-                        <li th:each="a : ${q.answers}">
+                        <li th:each="a : ${q.shuffleAndGet()}">
                             <input id="defaultChecked" type="radio"
                                    th:name="${q.questionId}"
                                    th:value="${a.answerNo}"/>
