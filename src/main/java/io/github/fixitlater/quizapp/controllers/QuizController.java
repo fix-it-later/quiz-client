@@ -18,7 +18,6 @@ import java.util.Map;
 @Controller
 public class QuizController {
 
-
     private QuizService quizService;
     private QuestionService questionService;
     private QuizStorage quizStorage;
@@ -29,7 +28,6 @@ public class QuizController {
         this.questionService = questionService;
         this.quizStorage = quizStorage;
     }
-
 
     @GetMapping("/quiz/menu")
     public String getQuizMenu(Model model) {
@@ -44,24 +42,24 @@ public class QuizController {
         return "index";
     }
 
-    @GetMapping("/quiz/test")
-    public String showCategories(Model model) {
-        return "index";
-    }
-
-    @GetMapping("/quiz/quizAttempt")
-    public String attemptQuiz() {
+    @PostMapping("/quiz/quizAttempt")
+    public String attemptQuiz(@RequestParam(required = false) String category,
+                              @RequestParam(required = false) String language, Model model) {
+        QuestionDto[] questionDtos = questionService.getQuestions(category, language);
+        String uid = quizStorage.addToQuizMap(questionDtos);
+        model.addAttribute("questions", Arrays.asList(questionDtos));
+        model.addAttribute("uid", uid);
         return "quiz/quizAttempt";
     }
 
-    @GetMapping("/quiz/randomQuestion")
+    @GetMapping("/quiz/random")
     public String showRandomQuestion(Model model) {
         QuestionDto questionDto = questionService.getRandomQuestion();
         model.addAttribute("question", questionDto);
         return "quiz/randomQuestion";
     }
 
-    @GetMapping("/quiz/Questions")
+    @GetMapping("/quiz/questions")
     public String showQuestions(Model model) {
         QuestionDto[] questionDtos = questionService.getAllQuestions();
         String uid = quizStorage.addToQuizMap(questionDtos);
@@ -82,7 +80,7 @@ public class QuizController {
     public String questionForm(Model model) {
         model.addAttribute("questionForm", new QuestionForm());
         model.addAttribute("categories", quizService.getCategoryList());
-        model.addAttribute("languages",  quizService.getLanguageList());
+        model.addAttribute("languages", quizService.getLanguageList());
         return "admin/createQuestionForm";
     }
 
@@ -99,4 +97,5 @@ public class QuizController {
         }
         return "failure";
     }
+
 }
