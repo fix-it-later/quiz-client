@@ -55,7 +55,10 @@ public class QuizController {
     @GetMapping("/quiz/random")
     public String showRandomQuestion(Model model) {
         QuestionDto questionDto = questionService.getRandomQuestion();
+        QuestionDto[] questionDtos = {questionDto};
         model.addAttribute("question", questionDto);
+        String uid = quizStorage.addToQuizMap(questionDtos);
+        model.addAttribute("uid", uid);
         return "quiz/randomQuestion";
     }
 

@@ -8,12 +8,35 @@
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
 
-<p th:text="${question.questionBody}">...</p>
-<form th:each="a : ${question.shuffleAndGet()}" method="post">
-    <input type="radio" th:text=" ${a.answerBody}" th:value="${a.answerNo}"><br>
-</form>
-<input type="submit" value="Submit">
-<input type="submit" value="Next">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 mt-3">
+            <form th:action="@{/quiz/results/} + ${uid}" th:method="post">
+                <div class="custom-card-body">
+                    <p class="custom-card-header" th:text="${question.questionBody}">...</p>
+                    <ul>
+                        <li th:each="a : ${question.shuffleAndGet()}">
+                            <input id="defaultChecked" type="radio"
+                            th:value="${a.answerNo}"/>
+                            <label th:text="${a.answerBody}"
+                                   for="defaultChecked"></label>
+                        </li>
+                    </ul>
+                </div>
+                <input type="submit" class="btn btn-primary mt-2" value="Submit">
+            </form>
+            <form class="mt-1" th:action="@{/quiz/random}" th:method="get">
+                <button type="submit" class="btn btn-primary">next random</button>
+            </form>
+            <form class="mt-5" th:action="@{/}" th:method="get">
+                <button type="submit" class="btn btn-primary">back to main menu</button>
+            </form>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <p th:text="${'quiz id, ' + uid}">nr</p>
+    </div>
+</div>
 
 <th:block th:include="fragments/stylesAndScripts :: js_import"></th:block>
 
