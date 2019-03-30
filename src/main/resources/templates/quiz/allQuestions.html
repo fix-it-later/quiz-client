@@ -26,6 +26,9 @@
                 <input type="submit" class="btn btn-primary mt-2 mb-4" value="Submit">
                 <p th:text="${'quiz id, ' + uid}">nr</p>
             </form>
+            <form class="mt-3" th:action="@{/}" th:method="get">
+                <button type="submit" class="btn btn-primary">back to main menu</button>
+            </form>
         </div>
     </div>
 </div>
