@@ -14,7 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by ej on 24/03/2019.
@@ -52,5 +52,28 @@ public class ApiIntegrationTest {
         HttpEntity<QuestionDto> request = new HttpEntity<>(questionDto, headers);
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://localhost:8089/questions/add", request, String.class);
+    }
+
+
+    @Test
+    public void test() throws InterruptedException {
+        Date today = new Date();
+        System.out.println(today);
+        Thread.sleep(5*60*10);
+        Date tomorrow = new Date();
+        System.out.println(tomorrow);
+
+        List<Date> dates = new ArrayList<>();
+        dates.add(tomorrow);
+        dates.add(today);
+        System.out.println(dates);
+        Collections.sort(dates, new Comparator<Date>() {
+            @Override
+            public int compare(Date o1, Date o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        System.out.println(dates);
+
     }
 }
