@@ -1,8 +1,6 @@
-package io.github.fixitlater.quizapp.controllers;
+package io.github.fixitlater.quizapp.challenge;
 
 import io.github.fixitlater.quizapp.entities.User;
-import io.github.fixitlater.quizapp.challenge.ChallengeService;
-import io.github.fixitlater.quizapp.services.UserContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,19 +13,24 @@ import java.util.List;
 @RequestMapping("/challenge")
 public class ChallengeController {
 
-    private UserContextService userContextService;
+    private ChallengeUserContextService userContextService;
     private ChallengeService challengeService;
 
     @Autowired
-    public ChallengeController(UserContextService userContextService, ChallengeService challengeService) {
+    public ChallengeController(ChallengeUserContextService userContextService, ChallengeService challengeService) {
         this.userContextService = userContextService;
         this.challengeService = challengeService;
     }
 
+
     @GetMapping("/")
     public String challengeMainPage(Model model){
+        if (!userContextService.isLogged()) return "redirect:/user/login";
         User loggedUser = userContextService.getLoggedUser();
-        if (loggedUser.getDisplayName() == null) return "challange/setDisplayName";
+        if (loggedUser.getDisplayName() == null) {
+            model.addAttribute("loggedUser");
+            return "challange/setDisplayName";
+        }
         model.addAttribute("displayName", loggedUser.getDisplayName());
         return "/challenge/challengeMenu";
     }
@@ -36,10 +39,5 @@ public class ChallengeController {
     public String showFindOpponentPage(Model model){
 
         return "/challenge/findOpponent";
-    }
-
-    @GetMapping("/list")
-    public List<User> listUsers() {
-        return challengeService.getListOfAllUsersNotAdmins();
     }
 }

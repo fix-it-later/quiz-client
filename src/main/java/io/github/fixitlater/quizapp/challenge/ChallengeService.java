@@ -1,29 +1,27 @@
 package io.github.fixitlater.quizapp.challenge;
 
-import io.github.fixitlater.quizapp.entities.RoleType;
 import io.github.fixitlater.quizapp.entities.User;
-import io.github.fixitlater.quizapp.repositories.UserRepository;
-import io.github.fixitlater.quizapp.services.UserContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChallengeService {
 
-    private UserRepository userRepository;
-    private UserContextService userContextService;
+    private ChallengeUserRepository userRepository;
+    private ChallengeUserContextService userContextService;
 
     @Autowired
-    public ChallengeService(UserRepository userRepository, UserContextService userContextService) {
+    public ChallengeService(ChallengeUserRepository userRepository, ChallengeUserContextService userContextService) {
         this.userRepository = userRepository;
         this.userContextService = userContextService;
     }
 
-    public List<User> getListOfAllUsersNotAdmins(){
-        return userRepository.findAllByRoleRoleName(RoleType.ROLE_USER);
-    }
 
+    public List<DisplayName> getListOfAllOtherUsersDisplayNamees(){
+        return userRepository.findAllByDisplayNameNotNull().stream().filter(u -> !u.equals(userContextService.getLoggedUser())).map(u -> u.getDisplayName()).collect(Collectors.toList());
+    }
 
 }
