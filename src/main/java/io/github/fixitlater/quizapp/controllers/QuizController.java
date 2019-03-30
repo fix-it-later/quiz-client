@@ -1,15 +1,11 @@
 package io.github.fixitlater.quizapp.controllers;
 
-
 import io.github.fixitlater.quizapp.dtos.QuestionDto;
-import io.github.fixitlater.quizapp.entities.Category;
-import io.github.fixitlater.quizapp.entities.Language;
 import io.github.fixitlater.quizapp.forms.QuestionForm;
 import io.github.fixitlater.quizapp.services.QuestionService;
 import io.github.fixitlater.quizapp.services.QuizService;
 import io.github.fixitlater.quizapp.services.QuizStorage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,13 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-
 
 @Controller
 public class QuizController {
-
 
     private QuizService quizService;
     private QuestionService questionService;
@@ -35,7 +28,6 @@ public class QuizController {
         this.questionService = questionService;
         this.quizStorage = quizStorage;
     }
-
 
     @GetMapping("/quiz/menu")
     public String getQuizMenu(Model model) {
@@ -50,24 +42,27 @@ public class QuizController {
         return "index";
     }
 
-    @GetMapping("/quiz/test")
-    public String showCategories(Model model) {
-        return "index";
-    }
-
-    @GetMapping("/quiz/quizAttempt")
-    public String attemptQuiz() {
+    @PostMapping("/quiz/quizAttempt")
+    public String attemptQuiz(@RequestParam(required = false) String category,
+                              @RequestParam(required = false) String language, Model model) {
+        QuestionDto[] questionDtos = questionService.getQuestions(category, language);
+        String uid = quizStorage.addToQuizMap(questionDtos);
+        model.addAttribute("questions", Arrays.asList(questionDtos));
+        model.addAttribute("uid", uid);
         return "quiz/quizAttempt";
     }
 
-    @GetMapping("/quiz/randomQuestion")
+    @GetMapping("/quiz/random")
     public String showRandomQuestion(Model model) {
         QuestionDto questionDto = questionService.getRandomQuestion();
+        QuestionDto[] questionDtos = {questionDto};
         model.addAttribute("question", questionDto);
+        String uid = quizStorage.addToQuizMap(questionDtos);
+        model.addAttribute("uid", uid);
         return "quiz/randomQuestion";
     }
 
-    @GetMapping("/quiz/Questions")
+    @GetMapping("/quiz/questions")
     public String showQuestions(Model model) {
         QuestionDto[] questionDtos = questionService.getAllQuestions();
         String uid = quizStorage.addToQuizMap(questionDtos);
@@ -87,8 +82,8 @@ public class QuizController {
     @GetMapping("/admin/create")
     public String questionForm(Model model) {
         model.addAttribute("questionForm", new QuestionForm());
-        model.addAttribute("categories", Category.values());
-        model.addAttribute("languages", Language.values());
+        model.addAttribute("categories", quizService.getCategoryList());
+        model.addAttribute("languages", quizService.getLanguageList());
         return "admin/createQuestionForm";
     }
 
@@ -96,13 +91,14 @@ public class QuizController {
     public String createQuestion(@ModelAttribute @Valid QuestionForm questionForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("questionForm", questionForm);
-            model.addAttribute("categories", Category.values());
-            model.addAttribute("languages", Language.values());
+            model.addAttribute("categories", quizService.getCategoryList());
+            model.addAttribute("languages", quizService.getLanguageList());
             return "admin/createQuestionForm";
         }
-        if (questionService.saveQuestion(questionForm).getStatusCode().equals(HttpStatus.CREATED)) {
+        if (questionService.saveQuestion(questionForm)) {
             return "success";
         }
         return "failure";
     }
+
 }

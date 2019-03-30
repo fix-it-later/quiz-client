@@ -2,17 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Quiz Attempt</title>
+    <title>Answer Questions</title>
     <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
 </head>
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
 <div class="container-fluid">
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4 mt-3">
-            <p>quiz attempt</p>
+            <form th:action="@{/quiz/results/} + ${uid}" method="post">
+                <div class="custom-card-body" th:each="q : ${questions}">
+                    <p class="custom-card-header" th:text="${q.questionBody}">...</p>
+                    <ul>
+                        <li th:each="a : ${q.shuffleAndGet()}">
+                            <input id="defaultChecked" type="radio"
+                                   th:name="${q.questionId}"
+                                   th:value="${a.answerNo}"/>
+                            <label th:text="${a.answerBody}"
+                                   for="defaultChecked"></label>
+                        </li>
+                    </ul>
+                </div>
+                <input type="submit" class="btn btn-primary mt-2 mb-4" value="Submit">
+                <p th:text="${'quiz id, ' + uid}">nr</p>
+            </form>
+            <form class="mt-3" th:action="@{/}" th:method="get">
+                <button type="submit" class="btn btn-primary">back to main menu</button>
+            </form>
         </div>
     </div>
 </div>
+
+<th:block th:include="fragments/stylesAndScripts :: js_import"></th:block>
+
 </body>
+
 </html>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>user profile</title>
     <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+
 </head>
 <body>
 <th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
@@ -23,8 +24,17 @@
             <form class="mt-3" method="get" th:action="@{/user/logout}">
                 <input class="btn btn-primary" type="submit" value="Log out">
             </form>
+            <form class="mt-3" th:action="@{/}" th:method="get">
+                <button type="submit" class="btn btn-primary">back to main menu</button>
+            </form>
+            <form method="get" th:if="${@userContextService.hasRoleAdmin()}" th:action="@{/admin/create}">
+                <input class="btn btn-primary mt-3" type="submit" value="Add question">
+            </form>
         </div>
     </div>
 </div>
+
+<th:block th:include="fragments/stylesAndScripts :: js_import"></th:block>
+
 </body>
 </html>

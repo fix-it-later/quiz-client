@@ -1,5 +1,6 @@
 package io.github.fixitlater.quizapp.dtos;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,5 +14,6 @@ import lombok.ToString;
 public class AnswerDto {
     private int answerNo;
     private String answerBody;
+    @SerializedName("correct")
     private boolean isCorrect;
 }
