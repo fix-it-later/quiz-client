@@ -14,3 +14,14 @@ Application allows to answer the questions supplied by quizzes from quiz-api.
 ## Demo
 
 [HEROKU live demo](https://fix-it-later-quiz-app.herokuapp.com/)
+
+## screenshots
+
+**New question form**
+
+![Post management](https://i.ibb.co/VJ4H65M/question-form.jpg)
+
+**Quiz**
+
+![Register form](https://i.ibb.co/1Xd2tCJ/quiz.jpg)
+
